@@ -45,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneNoController = TextEditingController();
   TextEditingController feedbackController = TextEditingController();
+  TextEditingController sexController = TextEditingController();
 
   // Method to Submit Feedback and save it in Google Sheets
   void _submitForm() {
@@ -56,7 +57,8 @@ class _MyHomePageState extends State<MyHomePage> {
           nameController.text,
           emailController.text,
           phoneNoController.text,
-          feedbackController.text);
+          feedbackController.text,
+          sexController.text);
 
       FormController formController = FormController((String response) {
         print("Response: $response");
@@ -89,10 +91,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void _setEnabledSubmitBtn(bool state) {
     _btnState = state;
     if (state) {
-      nameController.text = '';
-      emailController.text = '';
-      phoneNoController.text = '';
-      feedbackController.text = '';
+      nameController.clear();
+      emailController.clear();
+      phoneNoController.clear();
+      feedbackController.clear();
+      sexController.clear();
     }
     setState(() {});
   }
@@ -162,6 +165,16 @@ class _MyHomePageState extends State<MyHomePage> {
                         },
                         keyboardType: TextInputType.multiline,
                         decoration: InputDecoration(labelText: 'Feedback'),
+                      ),
+                      TextFormField(
+                        controller: sexController,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Enter Valid Sex';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(labelText: 'Sex'),
                       ),
                     ],
                   ),
